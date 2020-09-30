@@ -1,3 +1,8 @@
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.MemoryImageSource;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -63,6 +68,11 @@ public class mandelbrots extends javax.swing.JFrame {
         jLabel5.setText("b");
 
         poga.setText("Mandelbrots");
+        poga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pogaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelisLayout = new javax.swing.GroupLayout(panelis);
         panelis.setLayout(panelisLayout);
@@ -72,7 +82,7 @@ public class mandelbrots extends javax.swing.JFrame {
         );
         panelisLayout.setVerticalGroup(
             panelisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,13 +112,13 @@ public class mandelbrots extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bno, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                             .addComponent(blidz))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, Short.MAX_VALUE)
                         .addComponent(poga, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(139, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +140,7 @@ public class mandelbrots extends javax.swing.JFrame {
                     .addComponent(blidz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,13 +153,87 @@ public class mandelbrots extends javax.swing.JFrame {
     private void bnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bnoActionPerformed
-    public void zimet() {
-        int m = 10;
-        int a = Integer.parseInt(ano.getText());
-        int b = Integer.parseInt(bno.getText()); //int n = Integer.parseInt(ievade.getText());
-        int[] pixels = new int[panelis.getWidth()*panelis.getHeight()];
-        
-    }
+    Image img;
+    private void pogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pogaActionPerformed
+        int width = panelis.getWidth();
+        int height = panelis.getHeight();
+        double a_no = Double.parseDouble(ano.getText());
+        System.out.println(a_no);
+        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        double a_lidz = Double.parseDouble(alidz.getText());
+        double b_lidz = Double.parseDouble(blidz.getText());
+        double aintervals = a_lidz - a_no;
+        double bintervals =  b_lidz - b_no;
+        System.out.println(aintervals);
+        System.out.println(bintervals);
+        int ipixels = 0;
+        int[] pixels = new int[width*height];
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++) {
+                double cimag = ((double)x-(double)width/2)*(double)aintervals/(double)width;
+                double creal = ((double)y-(double)height/2)*(double)bintervals/(double)height;
+                double a = creal;
+                double b = cimag;
+                int i = 0;
+                do {
+                    double anew = a*a - b*b +creal;
+                    double bnew = 2*a*b + cimag;
+                    a = anew;
+                    b = bnew;
+                    i++;
+                } while (i < 100 && Math.abs(a*a+b*b)<10);
+                
+                if (i <= 100 && Math.abs(a*a+b*b)<=10){
+                    pixels[ipixels++]=(255<<24)|(0<<16)|(0<<8)|0;
+                }
+                else pixels[ipixels++]=(255<<24)|(255<<16)|(0<<8)|0;
+            }
+        }
+        img = createImage(new MemoryImageSource(width, height, pixels, 0, width));
+        Graphics g = panelis.getGraphics();
+        g.drawImage(img, 0, 0, null);
+    }//GEN-LAST:event_pogaActionPerformed
+
+//    public void zimet() {
+//        int width = panelis.getWidth();
+//        int height = panelis.getHeight();
+//        int a_no = Integer.parseInt(ano.getText());
+//        int b_no = Integer.parseInt(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+//        int a_lidz = Integer.parseInt(alidz.getText());
+//        int b_lidz = Integer.parseInt(blidz.getText());
+//        int aintervals = a_lidz - a_no;
+//        int bintervals =  b_lidz - b_no;
+//        int ipixels = 0;
+//        int[] pixels = new int[width*height];
+//        for (int x = 0; x < width; x++){
+//            for (int y = 0; y < height; y++) {
+//                double creal = (x-width/2)*aintervals/width;
+//                double cimag = (y-height/2)*bintervals/height;
+//                double a = creal;
+//                double b = cimag;
+//                int i = 0;
+//                do {
+//                    double anew = a*a - b*b +creal;
+//                    double bnew = 2*a*b + cimag;
+//                    a = anew;
+//                    b = bnew;
+//                    i++;
+//                } while (i < 100 && Math.abs(a*a+b*b)<10);
+//                
+//                if (i <= 100 && Math.abs(a*a+b*b)<=10){
+//                    pixels[ipixels++]=(255<<24)|(0<<16)|(0<<8)|0;
+//                }
+//                else pixels[ipixels++]=(255<<24)|(255<<16)|(0<<8)|0;
+//            }
+//        }
+//        img = createImage(new MemoryImageSource(width, height, pixels, 0, width));
+//        repaint();
+//    }
+//    public void paint() {
+//        //super.paint(g);
+//        Graphics g = panelis.getGraphics();
+//        g.drawImage(img, 0, 0, null);
+//    }
     /**
      * @param args the command line arguments
      */
