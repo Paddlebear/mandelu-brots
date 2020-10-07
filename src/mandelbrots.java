@@ -74,6 +74,16 @@ public class mandelbrots extends javax.swing.JFrame {
             }
         });
 
+        panelis.setPreferredSize(new java.awt.Dimension(400, 400));
+        panelis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelisMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                panelisMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelisLayout = new javax.swing.GroupLayout(panelis);
         panelis.setLayout(panelisLayout);
         panelisLayout.setHorizontalGroup(
@@ -82,7 +92,7 @@ public class mandelbrots extends javax.swing.JFrame {
         );
         panelisLayout.setVerticalGroup(
             panelisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,7 +150,7 @@ public class mandelbrots extends javax.swing.JFrame {
                     .addComponent(blidz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -154,26 +164,27 @@ public class mandelbrots extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bnoActionPerformed
     Image img;
-    private void pogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pogaActionPerformed
-        int width = panelis.getWidth();
-        int height = panelis.getHeight();
-        double a_no = Double.parseDouble(ano.getText());
-        System.out.println(a_no);
-        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
-        double a_lidz = Double.parseDouble(alidz.getText());
-        double b_lidz = Double.parseDouble(blidz.getText());
+    private void zimet(double a_no, double b_no, double a_lidz, double b_lidz) {
+        int length;
+        double intervals;
+        if (panelis.getWidth() < panelis.getHeight()) {
+            length = panelis.getWidth();
+        } else length = panelis.getHeight();
         double aintervals = a_lidz - a_no;
         double bintervals =  b_lidz - b_no;
-        System.out.println(aintervals);
-        System.out.println(bintervals);
+        if (aintervals < bintervals) {
+            intervals = aintervals;
+        } else intervals = bintervals;
+        System.out.println(intervals);
+        System.out.println(intervals);
         int ipixels = 0;
-        int[] pixels = new int[width*height];
-        for (int x = 0; x < width; x++){
-            for (int y = 0; y < height; y++) {
-                double cimag = ((double)x-(double)width/2)*(double)aintervals/(double)width;
-                double creal = ((double)y-(double)height/2)*(double)bintervals/(double)height;
-                double a = creal;
+        int[] pixels = new int[length*length];
+        for (int x = 0; x < length; x++){
+            for (int y = 0; y < length; y++) {
+                double cimag = a_no + (intervals*x/(double)length);
+                double creal = b_no + (intervals*y/(double)length);
                 double b = cimag;
+                double a = creal;
                 int i = 0;
                 do {
                     double anew = a*a - b*b +creal;
@@ -186,13 +197,66 @@ public class mandelbrots extends javax.swing.JFrame {
                 if (i <= 100 && Math.abs(a*a+b*b)<=10){
                     pixels[ipixels++]=(255<<24)|(0<<16)|(0<<8)|0;
                 }
-                else pixels[ipixels++]=(255<<24)|(255<<16)|(0<<8)|0;
+                else {
+                int red = i*15%256;
+                int blue = i*7%256;
+                pixels[ipixels++]=(255<<24)|(red<<16)|(0<<8)|blue;
+                }
             }
         }
-        img = createImage(new MemoryImageSource(width, height, pixels, 0, width));
+        img = createImage(new MemoryImageSource(length, length, pixels, 0, length));
         Graphics g = panelis.getGraphics();
         g.drawImage(img, 0, 0, null);
+    }
+    private void pogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pogaActionPerformed
+        double a_no = Double.parseDouble(ano.getText());
+        //System.out.println(a_no);
+        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        double a_lidz = Double.parseDouble(alidz.getText());
+        double b_lidz = Double.parseDouble(blidz.getText());
+        zimet(a_no, b_no, a_lidz, b_lidz);
     }//GEN-LAST:event_pogaActionPerformed
+ double jano, jbno, jalidz, jblidz;
+    private void panelisMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelisMousePressed
+        int x = evt.getX();
+        int y = evt.getY();
+        int length;
+        if (panelis.getWidth() < panelis.getHeight()) {
+            length = panelis.getWidth();
+        } else length = panelis.getHeight();
+        double a_no = Double.parseDouble(ano.getText());
+        //System.out.println(a_no);
+        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        double a_lidz = Double.parseDouble(alidz.getText());
+        double b_lidz = Double.parseDouble(blidz.getText());
+        double aintervals = a_lidz - a_no;
+        double bintervals =  b_lidz - b_no;
+        jano = a_no + (aintervals*x/(double)length);
+        jbno = b_no + (bintervals*y/(double)length);
+        System.out.println(jano);
+        System.out.println(jbno);
+    }//GEN-LAST:event_panelisMousePressed
+
+    private void panelisMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelisMouseReleased
+        int x = evt.getX();
+        int y = evt.getY();
+        int length;
+        if (panelis.getWidth() < panelis.getHeight()) {
+            length = panelis.getWidth();
+        } else length = panelis.getHeight();
+        double a_no = Double.parseDouble(ano.getText());
+        //System.out.println(a_no);
+        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        double a_lidz = Double.parseDouble(alidz.getText());
+        double b_lidz = Double.parseDouble(blidz.getText());
+        double aintervals = a_lidz - a_no;
+        double bintervals =  b_lidz - b_no;
+        jalidz = a_no + (aintervals*x/(double)length);
+        jblidz = b_no + (bintervals*y/(double)length);
+        System.out.println(jalidz);
+        System.out.println(jblidz);
+        zimet(jano, jbno, jalidz, jblidz);
+    }//GEN-LAST:event_panelisMouseReleased
 
 //    public void zimet() {
 //        int width = panelis.getWidth();
