@@ -53,21 +53,22 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="bno" pref="60" max="32767" attributes="0"/>
-                          <Component id="blidz" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="360" max="32767" attributes="0"/>
-                      <Component id="poga" min="-2" pref="111" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="bno" pref="60" max="32767" attributes="0"/>
+                      <Component id="blidz" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="panelis" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="poga" pref="111" max="32767" attributes="0"/>
+                  <Component id="zooms" alignment="0" max="32767" attributes="0"/>
+                  <Component id="normals" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,10 +92,17 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="alidz" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="blidz" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="zooms" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelis" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelis" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="normals" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,8 +119,17 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ano">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="alidz">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alidzActionPerformed"/>
       </Events>
@@ -123,11 +140,17 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="bno">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-2"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bnoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="blidz">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -166,5 +189,18 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JButton" name="zooms">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Zoom Out"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="normals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Uz norm&#x101;lu"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="normalsActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

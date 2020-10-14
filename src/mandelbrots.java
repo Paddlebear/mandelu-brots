@@ -2,6 +2,7 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.MemoryImageSource;
+import java.util.Stack;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -42,6 +43,8 @@ public class mandelbrots extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         poga = new javax.swing.JButton();
         panelis = new javax.swing.JPanel();
+        zooms = new javax.swing.JButton();
+        normals = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -51,6 +54,14 @@ public class mandelbrots extends javax.swing.JFrame {
 
         jLabel2.setText("līdz");
 
+        ano.setText("-2");
+        ano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anoActionPerformed(evt);
+            }
+        });
+
+        alidz.setText("2");
         alidz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alidzActionPerformed(evt);
@@ -59,11 +70,14 @@ public class mandelbrots extends javax.swing.JFrame {
 
         jLabel3.setText("a");
 
+        bno.setText("-2");
         bno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnoActionPerformed(evt);
             }
         });
+
+        blidz.setText("2");
 
         jLabel5.setText("b");
 
@@ -95,6 +109,15 @@ public class mandelbrots extends javax.swing.JFrame {
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
+        zooms.setText("Zoom Out");
+
+        normals.setText("Uz normālu");
+        normals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normalsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,17 +141,18 @@ public class mandelbrots extends javax.swing.JFrame {
                         .addComponent(ano, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bno, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(blidz))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, Short.MAX_VALUE)
-                        .addComponent(poga, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(bno, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                        .addComponent(blidz))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(poga, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                    .addComponent(zooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(normals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,10 +171,15 @@ public class mandelbrots extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(alidz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(blidz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(blidz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zooms))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(normals)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,30 +188,25 @@ public class mandelbrots extends javax.swing.JFrame {
     private void alidzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alidzActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_alidzActionPerformed
-
+    Stack<Double> steks = new Stack();
     private void bnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bnoActionPerformed
     Image img;
     private void zimet(double a_no, double b_no, double a_lidz, double b_lidz) {
-        int length;
         double intervals;
-        if (panelis.getWidth() < panelis.getHeight()) {
-            length = panelis.getWidth();
-        } else length = panelis.getHeight();
         double aintervals = a_lidz - a_no;
         double bintervals =  b_lidz - b_no;
-        if (aintervals < bintervals) {
-            intervals = aintervals;
-        } else intervals = bintervals;
-        System.out.println(intervals);
-        System.out.println(intervals);
+//        if (Math.abs(aintervals) < Math.abs(bintervals)) {
+//            intervals = aintervals;
+//        } else intervals = bintervals;
+//        System.out.println(intervals);
         int ipixels = 0;
         int[] pixels = new int[length*length];
         for (int x = 0; x < length; x++){
             for (int y = 0; y < length; y++) {
-                double cimag = a_no + (intervals*x/(double)length);
-                double creal = b_no + (intervals*y/(double)length);
+                double cimag = a_no + (aintervals*x/(double)length);
+                double creal = b_no + (bintervals*y/(double)length);
                 double b = cimag;
                 double a = creal;
                 int i = 0;
@@ -209,28 +233,25 @@ public class mandelbrots extends javax.swing.JFrame {
         g.drawImage(img, 0, 0, null);
     }
     private void pogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pogaActionPerformed
-        double a_no = Double.parseDouble(ano.getText());
+        a_no = Double.parseDouble(ano.getText());
         //System.out.println(a_no);
-        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
-        double a_lidz = Double.parseDouble(alidz.getText());
-        double b_lidz = Double.parseDouble(blidz.getText());
-        zimet(a_no, b_no, a_lidz, b_lidz);
-    }//GEN-LAST:event_pogaActionPerformed
- double jano, jbno, jalidz, jblidz;
-    private void panelisMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelisMousePressed
-        int x = evt.getX();
-        int y = evt.getY();
-        int length;
+        b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        a_lidz = Double.parseDouble(alidz.getText());
+        b_lidz = Double.parseDouble(blidz.getText());
         if (panelis.getWidth() < panelis.getHeight()) {
             length = panelis.getWidth();
         } else length = panelis.getHeight();
-        double a_no = Double.parseDouble(ano.getText());
-        //System.out.println(a_no);
-        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
-        double a_lidz = Double.parseDouble(alidz.getText());
-        double b_lidz = Double.parseDouble(blidz.getText());
-        double aintervals = a_lidz - a_no;
-        double bintervals =  b_lidz - b_no;
+        zimet(a_no, b_no, a_lidz, b_lidz);
+    }//GEN-LAST:event_pogaActionPerformed
+ double jano, jbno, jalidz, jblidz;
+ double a_no, b_no, a_lidz, b_lidz;
+ int length;
+ double aintervals, bintervals;
+    private void panelisMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelisMousePressed
+        int x = evt.getX();
+        int y = evt.getY();
+        aintervals = a_lidz - a_no;
+        bintervals =  b_lidz - b_no;
         jano = a_no + (aintervals*x/(double)length);
         jbno = b_no + (bintervals*y/(double)length);
         System.out.println(jano);
@@ -240,23 +261,36 @@ public class mandelbrots extends javax.swing.JFrame {
     private void panelisMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelisMouseReleased
         int x = evt.getX();
         int y = evt.getY();
-        int length;
-        if (panelis.getWidth() < panelis.getHeight()) {
-            length = panelis.getWidth();
-        } else length = panelis.getHeight();
-        double a_no = Double.parseDouble(ano.getText());
-        //System.out.println(a_no);
-        double b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
-        double a_lidz = Double.parseDouble(alidz.getText());
-        double b_lidz = Double.parseDouble(blidz.getText());
-        double aintervals = a_lidz - a_no;
-        double bintervals =  b_lidz - b_no;
         jalidz = a_no + (aintervals*x/(double)length);
         jblidz = b_no + (bintervals*y/(double)length);
         System.out.println(jalidz);
         System.out.println(jblidz);
+        ano.setText(String.valueOf(jano));
+        bno.setText(String.valueOf(jbno));
+        alidz.setText(String.valueOf(jalidz));
+        blidz.setText(String.valueOf(jblidz));
+        a_no = Double.parseDouble(ano.getText());
+        b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        a_lidz = Double.parseDouble(alidz.getText());
+        b_lidz = Double.parseDouble(blidz.getText());
         zimet(jano, jbno, jalidz, jblidz);
     }//GEN-LAST:event_panelisMouseReleased
+
+    private void anoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anoActionPerformed
+
+    private void normalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normalsActionPerformed
+        ano.setText("-2");
+        bno.setText("-2");
+        alidz.setText("2");
+        blidz.setText("2");
+        a_no = Double.parseDouble(ano.getText());
+        b_no = Double.parseDouble(bno.getText()); //int n = Integer.parseInt(ievade.getText());
+        a_lidz = Double.parseDouble(alidz.getText());
+        b_lidz = Double.parseDouble(blidz.getText());
+        zimet(-2, -2, 2, 2);
+    }//GEN-LAST:event_normalsActionPerformed
 
 //    public void zimet() {
 //        int width = panelis.getWidth();
@@ -343,7 +377,9 @@ public class mandelbrots extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton normals;
     private javax.swing.JPanel panelis;
     private javax.swing.JButton poga;
+    private javax.swing.JButton zooms;
     // End of variables declaration//GEN-END:variables
 }
