@@ -194,7 +194,7 @@ public class mandelbrots extends javax.swing.JFrame {
     }//GEN-LAST:event_bnoActionPerformed
     Image img;
     private void zimet(double a_no, double b_no, double a_lidz, double b_lidz) {
-        double intervals;
+        //double intervals;
         double aintervals = a_lidz - a_no;
         double bintervals =  b_lidz - b_no;
 //        if (Math.abs(aintervals) < Math.abs(bintervals)) {
@@ -211,8 +211,8 @@ public class mandelbrots extends javax.swing.JFrame {
                 double a = creal;
                 int i = 0;
                 do {
-                    double anew = a*a - b*b +creal;
-                    double bnew = 2*a*b + cimag;
+                    double anew = (a*a) - (b*b) +creal;
+                    double bnew = (2*a*b) + cimag;
                     a = anew;
                     b = bnew;
                     i++;
